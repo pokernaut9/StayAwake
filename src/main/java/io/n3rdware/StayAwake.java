@@ -45,10 +45,11 @@ public class StayAwake extends JFrame {
         JLabel intervalLabel = new JLabel("Interval (ms):");
         intervalLabel.setForeground(textColor);
 
-        intervalField = new JTextField("5000", 10);
+        intervalField = new JTextField("60000", 10);
         intervalField.setBackground(background);
         intervalField.setForeground(textColor);
         intervalField.setCaretColor(textColor);
+        intervalField.addActionListener(e -> toggleJiggler());
 
         toggleButton = new JButton("Start");
         toggleButton.setBackground(background);
@@ -62,11 +63,7 @@ public class StayAwake extends JFrame {
         statusLabel.setForeground(textColor);
 
         toggleButton.addActionListener(e -> {
-            if (running) {
-                stopJiggler();
-            } else {
-                startJiggler();
-            }
+            toggleJiggler();
         });
 
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -101,6 +98,14 @@ public class StayAwake extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setResizable(false);
+    }
+
+    private void toggleJiggler() {
+        if (running) {
+            stopJiggler();
+        } else {
+            startJiggler();
+        }
     }
 
     private void startJiggler() {
